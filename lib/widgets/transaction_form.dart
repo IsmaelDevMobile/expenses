@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class TransactionForm extends StatelessWidget {
-  TransactionForm({super.key});
+  TransactionForm({
+    super.key,
+    required this.onSubmit,
+  });
+
+  final void Function(String, double) onSubmit;
 
   final titleController = TextEditingController();
   final valueController = TextEditingController();
@@ -31,8 +36,9 @@ class TransactionForm extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {
-                    print(titleController.text);
-                    print(valueController.text);
+                    final title = titleController.text;
+                    final value = double.tryParse(valueController.text) ?? 0.0;
+                    onSubmit(title, value);
                   },
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.purple,
