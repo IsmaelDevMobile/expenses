@@ -19,12 +19,11 @@ class ExpensesApp extends StatelessWidget {
       home: const MyHomePage(),
       theme: tema.copyWith(
         colorScheme: tema.colorScheme.copyWith(
-        primary: Colors.purple,
-        secondary: Colors.amber,
-      )
-      
-    )
-  );
+          primary: Colors.purple,
+          secondary: Colors.amber,
+        ),
+      ),
+    );
   }
 }
 
@@ -36,7 +35,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   final _transaction = [
     Transaction(
       id: 't1',
@@ -52,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
-   _addTransaction(String title, double value) {
+  _addTransaction(String title, double value) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
@@ -63,18 +61,18 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transaction.add(newTransaction);
     });
-    
+
     Navigator.of(context).pop();
   }
 
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
-      context: context, 
-    builder: (_){
-    return TransactionForm(
-      onSubmit: _addTransaction,
-    );
-    });
+        context: context,
+        builder: (_) {
+          return TransactionForm(
+            onSubmit: _addTransaction,
+          );
+        });
   }
 
   @override
@@ -99,8 +97,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('Gráfico'),
             ),
             TransactionList(
-          transactions: _transaction,
-        ),
+              transactions: _transaction,
+            ),
           ],
         ),
       ),
