@@ -75,6 +75,18 @@ class _MyHomePageState extends State<MyHomePage> {
         const Duration(days: 4),
       ),
     ),
+    Transaction(
+      id: 't3',
+      title: 'Cartão de crédito',
+      value: 210001.30,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Lanche',
+      value: 11.30,
+      date: DateTime.now(),
+    ),
   ];
 
   List<Transaction> get _recentTransaction {
@@ -128,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-          Chart(recentTransaction: _recentTransaction),
+            Chart(recentTransaction: _recentTransaction),
             TransactionList(
               transactions: _transaction,
             ),
