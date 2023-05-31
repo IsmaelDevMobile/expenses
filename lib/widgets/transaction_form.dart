@@ -44,15 +44,38 @@ class TransactionForm extends StatelessWidget {
                 labelText: 'Valor (R\$)',
               ),
             ),
+            SizedBox(
+              height: 70,
+              child: Row(
+                children: <Widget>[
+                  const Text('Nenhum data selecionada!'),
+                  TextButton(
+                    child: Text(
+                      'Selecionar data',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    onPressed: () {},
+                  )
+                ],
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(
+                ElevatedButton(
                   onPressed: _submitForm,
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.purple,
                   ),
-                  child: const Text('Nova Transação'),
+                  child: const Text(
+                    'Nova Transação',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ],
             ),

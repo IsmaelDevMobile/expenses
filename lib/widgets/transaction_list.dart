@@ -42,17 +42,23 @@ class TransactionList extends StatelessWidget {
                 final tr = transactions[index];
                 return Card(
                   elevation: 5,
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     vertical: 8,
                     horizontal: 5,
                   ),
                   child: ListTile(
                     leading: CircleAvatar(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                       radius: 30,
                       child: Padding(
                         padding: const EdgeInsets.all(6),
                         child: FittedBox(
-                          child: Text('R\$${tr.value}'),
+                          child: Text(
+                            'R\$${tr.value}',
+                            style: TextStyle(
+                              color: Colors.grey.shade100,
+                            ),
+                          ),
                         ),
                       ),
                     ),
