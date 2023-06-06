@@ -1,23 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class TransactionForm extends StatelessWidget {
-  TransactionForm({
+class TransactionForm extends StatefulWidget {
+  final void Function(String, double) onSubmit;
+  const TransactionForm({
     super.key,
     required this.onSubmit,
   });
 
-  final void Function(String, double) onSubmit;
+  @override
+  State<TransactionForm> createState() => _TransactionFormState();
+}
 
-  final titleController = TextEditingController();
-  final valueController = TextEditingController();
+class _TransactionFormState extends State<TransactionForm> {
+  final _titleController = TextEditingController();
+
+  final _valueController = TextEditingController();
+
+  DateTime? _selectedDate;
 
   _submitForm() {
-    final title = titleController.text;
-    final value = double.tryParse(valueController.text) ?? 0.0;
+    final title = _titleController.text;
+    final value = double.tryParse(_valueController.text) ?? 0.0;
     if (title.isEmpty || value <= 0) {
       return;
     }
-    onSubmit(title, value);
+    widget.onSubmit(title, value);
+  }
+
+  _showDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1019),
+      lastDate: DateTime.now(),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    });
   }
 
   @override
@@ -29,14 +53,14 @@ class TransactionForm extends StatelessWidget {
         child: Column(
           children: [
             TextField(
-              controller: titleController,
+              controller: _titleController,
               onSubmitted: (_) => _submitForm(),
               decoration: const InputDecoration(
                 labelText: 'Titulo',
               ),
             ),
             TextField(
-              controller: valueController,
+              controller: _valueController,
               onSubmitted: (_) => _submitForm(),
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: true),
@@ -48,7 +72,11 @@ class TransactionForm extends StatelessWidget {
               height: 70,
               child: Row(
                 children: <Widget>[
-                  const Text('Nenhum data selecionada!'),
+                  Expanded(
+                    child: Text(_selectedDate == null
+                        ? 'Nenhum data selecionada!'
+                        : 'Data Selecionada: ${DateFormat('dd/MM/y').format(_selectedDate!)}'),
+                  ),
                   TextButton(
                     child: Text(
                       'Selecionar data',
@@ -57,7 +85,7 @@ class TransactionForm extends StatelessWidget {
                         color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: _showDatePicker,
                   )
                 ],
               ),
